@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<form class="form-horizontal">
+    <div id="myModal" class="modal hide fade" ng-controller="RoleListCtrl">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Add Role</h3>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="control-group">
+                <label class="control-label pull-left" for="name">Company Name</label>
+                <div class="controls">
+                    <input type="text" id="coyName" ng-model="newCompanyName" placeholder="Company Name">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label pull-left" for="name">Role</label>
+                <div class="controls">
+                    <input type="text" id="newRole" ng-model="newPosition" placeholder="Role">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <a href="#" class="btn">Close</a>
+            <a href="#" class="btn btn-primary" ng-click="addRole()">Save changes</a>
+        </div>
+
+    </div>
+</form>
+
+<div class="tab-pane" id="role" ng-controller="RoleListCtrl">
+
+    <a class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="icon-plus icon-white"></i>Add New Role</a>
+    <BR>
+
+    <table class="table table-bordered table-white spacer5">
+        <tr>
+            <th>company name</th>
+            <th>position</th>
+            <th>action</th>
+        </tr>
+
+        <tr ng-repeat="eachRole in roleList">
+            <td>{{eachRole.companyName}}</td>
+            <td>{{eachRole.position}}</td>
+            <td>
+                <button ng-click="deleteRole($index)">delete</button>
+            </td>
+        </tr>
+
+    </table>
+    <BR>
+
+</div>
+<script>
+    function RoleListCtrl($scope)
+    {
+        $('#myTab a[href="#role"]').tab('show');
+
+        $scope.newCompanyName ="";
+        $scope.newPosition="";
+
+
+        $scope.addRole = function()
+        {
+            var newRole = new function() {
+                this.companyName = $scope.newCompanyName;
+                this.position    = $scope.newPosition;
+                this.id          = '';
+            }
+            alert("test :"+newRole.companyName);
+
+            $scope.roleList = $scope.roleList.push(newRole);
+            // I have also tried this :   $scope.roleList = $scope.roleList.concat(newRole);
+        }
+
+        $scope.roleList = [
+            {"companyName": "Company 01", "id":"1", "position": "CEO"},
+            {"companyName": "Company 02", "id":"2", "position": "Board of Director"},
+            {"companyName": "Company 01", "id":"1", "position": "CEO"},
+            {"companyName": "Company 02", "id":"2", "position": "Board of Director"}
+
+        ];
+    }
+</script>
+</body>
+</html>
